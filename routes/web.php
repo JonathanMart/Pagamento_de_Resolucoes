@@ -4,14 +4,9 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [App\Http\Controllers\SearchController::class, 'index'])->name('guest.index');
-Route::post('/', [App\Http\Controllers\SearchController::class, 'search'])->name('guest.search');
-Route::get('/{tipo}', [App\Http\Controllers\SearchController::class, 'tipoConsulta'])->name('guest.tipoConsulta');
+Route::get('/consulta/{tipo}', [App\Http\Controllers\SearchController::class, 'tipoConsulta'])->name('guest.tipoConsulta');
+Route::post('/consulta/resultado', [App\Http\Controllers\SearchController::class, 'search'])->name('guest.search');
 Route::get('/show/{id}', [App\Http\Controllers\SearchController::class, 'show'])->name('guest.show');
-
-
-Route::get('/admin', function(){
-    return view('admin.index');
-});
 
 Route::get('/admin', [App\Http\Controllers\SheetsImportController::class, 'index'])->name('admin.index');
 Route::post('/admin', [App\Http\Controllers\SheetsImportController::class, 'store'])->name('admin.store');
@@ -20,4 +15,4 @@ Route::get('/admin/table/pagamentos_orcamentarios', [App\Http\Controllers\Sheets
 
 
 
-Route::post('/consulta', [App\Http\Controllers\ConsultaController::class, 'tipoConstulta'])->name('tipoConsulta');
+//Route::post('/consulta', [App\Http\Controllers\ConsultaController::class, 'tipoConsulta'])->name('tipoConsulta');

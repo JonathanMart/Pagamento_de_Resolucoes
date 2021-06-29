@@ -15,35 +15,34 @@ class SearchController extends Controller
 
     public function tipoConsulta($tipo_pesquisa)
     {
-        if($tipo_pesquisa == 'restos_pagar'){
-            $consulta = json_decode(json_encode(DB::table('restos_pagars')->get()), true);
+        if($tipo_pesquisa == '1'){
+            //$consulta = json_decode(json_encode(DB::table('restos_pagars')->get()), true);
+            $consulta = 1;
         }else{
-            $consulta = json_decode(json_encode(DB::table('pagamentos_orcamentarios')->get()), true);
+            //$consulta = json_decode(json_encode(DB::table('pagamentos_orcamentarios')->get()), true);
+            $consulta = 2;
         }
 
         //dd($consulta);
         return view('guest.index')->with('tipoConsulta', $consulta);
     }
 
-    public function search(SearchRequest $request)
+    public function search(Request $request)
     {
         $request_keys = array_keys($request->all()); //chaves do array de request
         $requisicoes = $request->all(); 
 
-        if($requisicoes['tipo_consulta'] == 'restos_pagars'){
+            
+        if($requisicoes['tipo_consulta'] == "Pagamentos de Restos a Pagar"){
             foreach($request_keys as $key){
-                if ($key != '_token' && $requisicoes[$key] != null){
+                if ($key != ('_token' or 'tipo_consulta') or $requisicoes[$key] != null){
                     $consulta = DB::table('restos_pagars')->where($key, $requisicoes[$key]);
-                    /* echo $key . ' -> '. $requisicoes[$key];
-                    echo "<br>"; */
                 }
             }
         }else{
             foreach($request_keys as $key){
                 if ($key != '_token' && $requisicoes[$key] != null){
                     $consulta = DB::table('pagamentos_orcamentarios')->where($key, $requisicoes[$key]);
-                    /* echo $key . ' -> '. $requisicoes[$key];
-                    echo "<br>"; */
                 }
             }
         }

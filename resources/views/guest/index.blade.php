@@ -2,8 +2,6 @@
 
 @section('title', 'PagRes')
 
-@php($registros = DB::table('restos_pagars')->get())
-
 @section('content')
 <h3>Pagamento de Resoluções</h3>
 <hr>
@@ -22,27 +20,28 @@
         <a href="{{ route('guest.tipoConsulta', ['tipo' => '1']) }}" class="btn btn-primary">Pagamentos de Restos a Pagar</a>
     </div>
     <div class="col-md-auto">
-        <a href="{{ route('guest.tipoConsulta', ['tipo' => '2']) }}" class="btn btn-primary">Pagamentos Orçamentários</a>
+        <a href="{{ route('guest.tipoConsulta', ['tipo' => '2']) }}" class="btn btn-success">Pagamentos Orçamentários</a>
     </div>
 </div>
 
 <br>
 
 @if(isset($tipoConsulta))
+
+{{-- Resgatando dados do BD --}}
+@php( $tipoConsulta == 1 ? $registros = DB::table('restos_pagars')->get() : $registros = DB::table('pagamentos_orcamentarios')->get() )
+
 {{-- Formulario de Pesquisa --}}
-<form action="{{ route('guest.search') }}", method="post">
+<form action="{{ route('guest.search') }}" method="post">
     @csrf
 
     <div class="row g-4">
         <div class="col">
             <div class="form-floating">
-                <select data-url="{{ url('consulta') }}" data-token="{{ csrf_token() }}" 
-                onchange="changetipoConsulta(this)" class="form-select" id="tipoConsulta" name="tipo_consulta">
-                    <option value="" selected>Selecione o tipo de consulta</option>
-                    <option value="restos_pagar">Pagamentos de Restos a Pagar</option>
-                    <option value="pagamentos_orcamentarios">Pagamentos Orçamentários</option>
+                <select class="form-select" id="tipo_consulta" name="tipo_consulta">
+                    <option selected>{{ $tipoConsulta == 1 ? 'Pagamentos de Restos a Pagar' : 'Pagamentos Orçamentários'}}</option>
                 </select>
-                <label for="tipoConsulta">Tipo de Consulta <strong style="color: red;">*</strong></label>
+                <label for="ano">Tipo da Consulta<strong style="color: red;"> *</strong></label>
             </div>
         </div>
         <div class="col">
@@ -163,6 +162,7 @@
     <input class="btn btn-success" type="submit" value="Consultar">
 
 </form>
+@endif
 
 {{-- Formulário de Resposta da Pesquisa --}}
 @if(isset($consulta))
