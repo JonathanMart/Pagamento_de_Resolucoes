@@ -1,0 +1,12 @@
+* {
+    font-family: 'Roboto';
+}
+
+#component {
+    padding: 15px;
+        padding-top: 15px;
+    /* border: 1px solid #D2D2D2 */;
+    background: #212529;
+    box-shadow: 0 0 10px rgba(0,0,0,0.15);
+    padding-top: 0;
+}

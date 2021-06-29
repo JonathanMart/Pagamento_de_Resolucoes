@@ -1,0 +1,15 @@
+- Tipo de Consulta
+    - Pagamento 2021 Restos a Pagar
+    - Pagamentos Orçamentários 2021
+
+- Checkbox para agrupar por valor de Pagamento ???
+- Data do pagamento -> input 
+- Banco creditado -> select (aparecer agência ou nome do banco ?)
+- Agencia creditada -> select ou input ???
+- Conta bancaria creditada -> select 
+- nome do municipio ou entidade -> select 
+- Projeto/Atv -> select 
+- UPG -> select 
+- nº da resolução-> input 
+- Unidade Executora Select 
+
