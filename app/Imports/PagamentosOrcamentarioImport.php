@@ -29,7 +29,7 @@ class PagamentosOrcamentarioImport implements ToModel
             'credor' => $row[10],
             'num_empenho' => $row[11],
             'num_dcto_pgto' => $row[12],
-            'data_pgto' => date('Y-m-d', (int) $row[13]),
+            'data_pgto' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[13]),
             'valor_pago_financeiro' => $row[14],
             'cod_banco' => $row[15],
             'cod_agencia' => $row[16],

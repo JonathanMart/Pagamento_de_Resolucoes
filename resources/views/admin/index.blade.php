@@ -6,6 +6,8 @@
 
 @section('content')
 <h3>Painel de Administrador</h3>
+
+
 <hr>
 
 {{-- Upload de Planilhas --}}

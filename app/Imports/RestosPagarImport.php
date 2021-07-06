@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\RestosPagar;
+use DateTime;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class RestosPagarImport implements ToModel
@@ -10,13 +11,15 @@ class RestosPagarImport implements ToModel
     
     public function model(array $row)
     {
+
+        //Pulando linhas em branco e de cabeçalho
         if(!isset($row[0]) || ($row[0]=='Unidade Executora - Código/Nome')){
             return null;
         }
 
         return new RestosPagar([
             'cod_ue' => intval(substr($row[0], 0, 7)),
-            'nome_ue' => substr($row[0], 7, strlen($row[0])),
+            'nome_ue' => substr($row[0], 12, strlen($row[0])),
             'ref_contrato' => $row[1],
             'cod_atv' => $row[2],
             'dsc_atv' => $row[3],
@@ -32,7 +35,7 @@ class RestosPagarImport implements ToModel
             'num_ordem_pgto' => $row[13],
             'valor_pago_nproces' => $row[14],
             'valor_pago_proces' => $row[15],
-            'data_pgto' => date('Y-m-d', (int) $row[16]),
+            'data_pgto' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[16]),
             'cod_banco' => $row[17],
             'cod_agencia' => $row[18],
             'conta' => $row[19],
@@ -40,4 +43,6 @@ class RestosPagarImport implements ToModel
             'dsc_municipio' => $row[21],
         ]);
     }
+
+    
 }

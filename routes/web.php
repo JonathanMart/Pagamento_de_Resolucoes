@@ -7,9 +7,17 @@ Route::get('/', [App\Http\Controllers\SearchController::class, 'index'])->name('
 Route::get('/consulta/{tipo}', [App\Http\Controllers\SearchController::class, 'tipoConsulta'])->name('guest.tipoConsulta');
 Route::post('/consulta/resultado', [App\Http\Controllers\SearchController::class, 'search'])->name('guest.search');
 Route::get('/show/{id}', [App\Http\Controllers\SearchController::class, 'show'])->name('guest.show');
-
+ 
 Route::get('/admin', [App\Http\Controllers\SheetsImportController::class, 'index'])->name('admin.index');
 Route::post('/admin', [App\Http\Controllers\SheetsImportController::class, 'store'])->name('admin.store');
+
+/*
+Route::get('/admin/login', [App\Http\Controllers\SheetsImportController::class, 'showLoginForm'])->name('admin.loginForm');
+Route::post('/admin/login', [App\Http\Controllers\SheetsImportController::class, 'login'])->name('admin.login');
+
+Route::get('/admin/logout', [App\Http\Controllers\SheetsImportController::class, 'logout'])->name('admin.logout');
+ */
+
 
 Route::get('/admin/table/pagamentos_orcamentarios', [App\Http\Controllers\SheetsImportController::class, 'tablePagamentosOrcamentarios'])->name('admin.tablePO');
 
