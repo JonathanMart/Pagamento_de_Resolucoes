@@ -16,14 +16,13 @@ class SheetsImportController extends Controller
 {
     public function index()
     {
-        /* if(Auth::check()){
+        if(Auth::check()){
             return view('admin.index')->with('table', 'restos_pagars');
         }
 
-        return redirect()->route('admin.loginForm');  */      
+        return redirect()->route('loginForm');        
         
-        return view('admin.index')->with('table', 'restos_pagars');
-        
+        //return view('admin.index')->with('table', 'restos_pagars');
     }
     
     public function store(Request $request)

@@ -127,5 +127,7 @@
 </div>
 @endif
 
+<a class="btn btn-danger" href="{{ route('logout') }}" role="button">Logout</a>
+
 @endsection
 
