@@ -79,6 +79,52 @@
     </table>
   </div>
 </div>
+@else
+<div class="card">
+  <div class="card-header">
+    <ul class="nav nav-tabs card-header-tabs">
+      <li class="nav-item">
+        <a class="nav-link " href="{{ route('admin.index') }}">Pagamentos Restos a Pagar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="{{ route('admin.tablePO') }}">Pagamentos Orçamentários</a>
+      </li>
+    </ul>
+  </div>
+  <div class="card-body">
+    <table id="table" class="table">
+        <thead>
+          <tr>
+              <th scope="col">Ano de Pagamento</th>
+              <th scope="col">Dotação Orçamentária Resumida </th>
+              <th scope="col">Nº do Documento de Pagamento</th>
+              <th scope="col">Valor Pago Financeiro</th>
+              <th scope="col">Informação Bancária</th>
+          </tr>
+        </thead>
+        <tbody>
+          @foreach($registros as $registro)
+            <tr>  
+              <td>{{ substr($registro->data_pgto, 0, 4) }}</td>
+              <td>
+                {{ $registro->cod_ue }}.
+                {{ $registro->cod_atv }}.
+                {{ $registro->cod_fonte }}.
+                {{ $registro->cod_procedec }} 
+              </td>
+              <td>{{ $registro->num_dcto_pgto }}</td>
+              <td>{{ $registro->valor_pago_financeiro }}</td>
+              <td>
+                {{ $registro->cod_banco }}.
+                {{ $registro->cod_agencia }}.
+                {{ $registro->conta }}.
+              </td>
+            </tr>
+          @endforeach
+        </tbody>
+    </table>
+  </div>
+</div>
 @endif
 
 @endsection

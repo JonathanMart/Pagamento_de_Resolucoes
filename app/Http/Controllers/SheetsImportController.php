@@ -29,9 +29,13 @@ class SheetsImportController extends Controller
     public function store(Request $request)
     {
         $file = $request->file('file');
-
-
-        //Fazendo backup dos dados nas tabelas de backup
+               
+        /**
+         * Backup
+         */
+        //Apagar dados existentes nas tabelas de backup
+        DB::table('bckp_pagamentos_orcamentarios')->truncate();
+        DB::table('bckp_restos_pagars')->truncate();
         $dataRP = DB::table('restos_pagars')->get()->toArray();
         foreach ($dataRP as $rowDataRP){
             //dd($rowDataRP);
@@ -91,6 +95,10 @@ class SheetsImportController extends Controller
 
         }
         
+        /**
+         * Importação de dados
+         */
+
         //Apgando dados existentes nas tabelas
         DB::table('pagamentos_orcamentarios')->truncate();
         DB::table('restos_pagars')->truncate();
@@ -106,30 +114,5 @@ class SheetsImportController extends Controller
         return view('admin.index')->with('table', 'pagamentos_orcamentarios');
     }
 
-    /* public function showLoginForm()
-    {
-        return view('admin.formLogin');
-    }
-
-     public function login(Request $request)
-    {
-        var_dump($request->all());
-        
-        $credentials = [
-            'email' => $request->email,
-            'password' => $request->password,
-        ];
-        
-        if (Auth::attempt($credentials)){
-            return redirect()->route('admin.index');
-        }
-
-        return redirect()->back()->withInput()->withErrors(['Os dados informados não conferem!']);
-    }
-
-    public function logout()
-    {
-        Auth::logout();
-        return redirect()->route('admin.loginForm');
-    } */
+    
 }

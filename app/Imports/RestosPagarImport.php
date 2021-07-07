@@ -19,7 +19,7 @@ class RestosPagarImport implements ToModel
 
         return new RestosPagar([
             'cod_ue' => intval(substr($row[0], 0, 7)),
-            'nome_ue' => substr($row[0], 12, strlen($row[0])),
+            'nome_ue' => substr($row[0], 14, strlen($row[0])),
             'ref_contrato' => $row[1],
             'cod_atv' => $row[2],
             'dsc_atv' => $row[3],

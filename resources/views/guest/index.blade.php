@@ -44,6 +44,7 @@
                 <label for="ano">Tipo da Consulta<strong style="color: red;"> *</strong></label>
             </div>
         </div>
+        @if($tipoConsulta == 1)
         <div class="col">
             <div class="form-floating">
                 <select class="form-select" id="ano_empenho" name="ano_empenho">
@@ -57,21 +58,26 @@
                 <label for="ano">Ano do Empenho<strong style="color: red;"> *</strong></label>
             </div>
         </div>
+        @endif
         <div class="col">
             <div class="form-floating">
-                <select class="form-select" id="ano_pagamento" name="ano_pagamento">
+                <select class="form-select" id="ano_pagamento" name="data_pgto">
                     <option value="" selected>Selecione o ano de Pagamento</option>
-                    @php($anos_pagamento = $registros->unique('data_pgto'))
-                    @php($anos_empenho = $anos_pagamento->sortBy('data_pgto'))
-                    @foreach($anos_pagamento as $registro)
-                        <option>{{substr($registro->data_pgto, 0, 4)}}</option>
+                    @php($anos_pagamento=array())
+                    @php($datas_pagamento = DB::table('restos_pagars')->pluck('data_pgto'))
+                    @foreach($datas_pagamento as $data)
+                        @php($anos_pagamento[]=substr($data, 0, 4)) 
+                    @endforeach
+                    @php($anos = array_unique($anos_pagamento))
+                    @foreach($anos as $ano)
+                        <option>{{ $ano }}</option>
                     @endforeach
                 </select>
                 <label for="ano">Ano do Pagamento</label>
             </div>
         </div>
     </div>
-    
+
     <br>
     
     <div class="row g-3">
@@ -88,7 +94,7 @@
                     @php($unidades_executoras = $registros->unique('nome_ue'))
                     @php($unidades_executoras = $unidades_executoras->sortBy('nome_ue'))
                     @foreach($unidades_executoras as $registro)
-                        <option value="{{$registro->cod_ue}}">{{$registro->nome_ue}}</option>
+                        <option>{{ $registro->cod_ue . ' - ' . $registro->nome_ue}}</option>
                     @endforeach 
                 </select>
                 <label for="ue">Unidade Executora</label>
@@ -182,12 +188,14 @@
 
 {{-- Formulário de Resposta da Pesquisa --}}
 @if(isset($consulta))
+@if(empty($consulta)) <script>alert('A consulta não retornou dado!')</script> @endif
+
 <hr>
 
 <table id="table" class="table align-middle">
     <thead class="table-primary">
         <tr>
-            <th scope="col">Ano Empenho</th>
+            @if(isset($consulta[0]['ano_empenho']))<th scope="col">Ano Empenho</th>@endif
             <th scope="col">Unidade Executora</th>
             <th scope="col">Municipio</th>
             <th scope="col">Projeto/Atividade</th>
@@ -199,7 +207,7 @@
     <tbody>
         @foreach($consulta as $registro)
         <tr>  
-            <td>{{ $registro['ano_empenho'] }}</td>
+            @if(isset($registro['ano_empenho']))<td>{{ $registro['ano_empenho'] }}</td>@endif
             <td>{{ $registro['nome_ue'] }}</td>
             <td>{{ $registro['dsc_municipio'] }}</td>
             <td>{{ $registro['dsc_atv'] }}</td>

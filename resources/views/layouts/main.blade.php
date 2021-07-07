@@ -44,7 +44,13 @@
         
         <div class="container">
             @yield('content')
+            <br>
+            @if($_SERVER["REQUEST_URI"] != '/')
+                <a class="btn btn-primary" href="{{ route('guest.index') }}" role="button">Página Inicial</a>
+            @endif    
         </div>
+
+
         
        <!--  <footer>
             <p>Secretaria de Saude</p>
