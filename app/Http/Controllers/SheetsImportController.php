@@ -17,7 +17,15 @@ class SheetsImportController extends Controller
     public function index()
     {
         if(Auth::check()){
-            return view('admin.index')->with('table', 'restos_pagars');
+            if(isset($_GET['aba']) and ($_GET['aba'] == 'download')){
+                return view('admin.index')
+                    ->with('table', 'restos_pagars')
+                    ->with('aba', 'download');
+            }else{
+                return view('admin.index')
+                    ->with('table', 'restos_pagars')
+                    ->with('aba', 'upload');
+            }
         }
 
         return redirect()->route('loginForm');        
@@ -110,7 +118,7 @@ class SheetsImportController extends Controller
 
     public function tablePagamentosOrcamentarios()
     {
-        return view('admin.index')->with('table', 'pagamentos_orcamentarios');
+        return view('admin.index')->with('table', 'pagamentos_orcamentarios')->with('aba', 'upload');
     }
 
     

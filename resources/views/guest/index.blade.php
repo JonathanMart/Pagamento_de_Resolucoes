@@ -192,7 +192,7 @@
 
 <hr>
 
-<table id="table" class="table align-middle">
+<table id="table" class="table table-striped" style="width:100%">
     <thead class="table-primary">
         <tr>
             @if(isset($consulta[0]['ano_empenho']))<th scope="col">Ano Empenho</th>@endif
@@ -219,13 +219,23 @@
     </tbody>
 </table>
 
-
-<br>
-
 @endif
 
 
-{{-- Javascript para select dinâmico --}}
+{{-- Javascript para datatable --}}
+<script>
+$(document).ready(function() {
+    $('#table').DataTable({
+        dom: 'Bfrtip',
+        buttons: [
+            'csv', 'excel',
+        ],
+        language: {
+            url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
+        }
+    });
+} );
+</script>
 
 
 

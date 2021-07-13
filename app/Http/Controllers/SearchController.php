@@ -79,6 +79,7 @@ class SearchController extends Controller
             }
         }
         
+        
         return view('guest.index')->with('consulta', $search);
     }
 
