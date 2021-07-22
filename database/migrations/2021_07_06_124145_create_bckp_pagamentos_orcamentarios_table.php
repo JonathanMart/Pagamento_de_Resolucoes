@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Carbon\Carbon;
 
 class CreateBckpPagamentosOrcamentariosTable extends Migration
 {
@@ -16,6 +17,7 @@ class CreateBckpPagamentosOrcamentariosTable extends Migration
         Schema::create('bckp_pagamentos_orcamentarios', function (Blueprint $table) {
             $table->id();
 
+            $table->integer('ano')->default(Carbon::now()->year);
             $table->unsignedBigInteger('cod_ue')->nullable(); //row[0]
             $table->string('nome_ue')->nullable(); //row[0]
             $table->string('ref_contrato')->nullable(); //row[1]

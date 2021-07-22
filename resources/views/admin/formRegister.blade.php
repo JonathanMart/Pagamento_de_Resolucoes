@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'PagRes - Registro de Usuário')
+@section('title', 'Pagamento de Resoluções - Registro de Usuário')
 
 @section('content')
 <h3>Cadastrar Usuário</h3>

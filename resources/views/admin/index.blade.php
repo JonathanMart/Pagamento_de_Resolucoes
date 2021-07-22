@@ -1,7 +1,8 @@
 @extends('layouts.main')
 
-@section('title', 'PagRes')
+@section('title', 'Pagamento de Resoluções - Admin')
 
+@php($ano = Carbon\Carbon::now()->year)
 @php($registros = DB::table($table)->get())
 
 @section('content')
@@ -59,6 +60,17 @@
 </div>
 
 <hr>
+
+<div class="alert alert-primary" role="alert">
+  @php($last_id = DB::table('restos_pagars')->orderBy('id', 'desc')->first())
+  @php($last_id = $last_id->id)
+  @php($date = DB::table('restos_pagars')->where('id', $last_id)->value('updated_at'))
+  @php($ano = substr($date, 0, 4))
+  @php($mes = substr($date, 5, 2))
+  @php($dia = substr($date, 8, 2))
+  @php($hora = substr($date, 11, 8))
+  <strong>Última atualização: {{ $dia }}/{{ $mes }}/{{ $ano }} às {{ $hora }}</strong> 
+</div>
 
 @if($table == 'restos_pagars')
 <div class="card">
@@ -153,10 +165,6 @@
   </div>
 </div>
 @endif
-
-<br>
-
-<a class="btn btn-danger" href="{{ route('logout') }}" role="button">Logout</a>
 
 <br>
 

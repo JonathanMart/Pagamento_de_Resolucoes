@@ -3,17 +3,18 @@
 namespace App\Imports;
 
 use App\Models\RestosPagar;
+use Carbon\Carbon;
 use DateTime;
 use Maatwebsite\Excel\Concerns\ToModel;
 
 class RestosPagarImport implements ToModel
 {
-    
+   
     public function model(array $row)
     {
-
+        
         //Pulando linhas em branco e de cabeçalho
-        if(!isset($row[0]) || ($row[0]=='Unidade Executora - Código/Nome')){
+        if(!isset($row[0]) || ($row[0]=='Unidade Executora - Código/Nome') || $row[0]=='Ano'){
             return null;
         }
 
@@ -43,6 +44,4 @@ class RestosPagarImport implements ToModel
             'dsc_municipio' => $row[21],
         ]);
     }
-
-    
 }

@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'PagRes')
+@section('title', 'Pagamento de Resoluções')
 
 @section('content')
 <h3>Pagamento de Resoluções</h3>
@@ -10,7 +10,16 @@
 <div class="card text-white bg-info mb-3">
   <div class="card-header">Instruções</div>
   <div class="card-body">
-    <p class="card-text">Os campos com <strong style="color: red;">*</strong> são de preenchimento obrigatório</p>
+    <!-- <p class="card-text">Os campos com <strong style="color: red;">*</strong> são de preenchimento obrigatório</p> -->
+    <p class="card-text">Para gerar sua consulta, siga os seguintes passos:</p>
+    <ol class="card-text">
+        <li>Clique no tipo de consulta que deseja realizar (Pagamento de Restos a Pagar ou Pagamentos Orçamentários)</li>
+        <li>Filtre os dados de acordo com o tipo de consulta que deseja gerar. <strong>Não é obrigatório preencher todos os filtros</strong></li>
+        <li>Clique no botão Consultar para gerar a consulta</li>
+        <li>Será exibida uma tabela com os dados de acordo com os filtros selecionados</li>
+        <li>Caso queira maiores detalhes sobre determinada consulta, clique no botão Visualizar</li>
+        <li>Existe também a opção de exportar os dados em formato CSV ou XLSX (Excel), clicando nos botões que estão dispostos no canto superior direito da tabela </li>
+    </ol>
   </div>
 </div>
 
@@ -102,14 +111,7 @@
         </div>
         <div class="col">
             <div class="form-floating">
-                <select class="form-select" id="municipio" name="dsc_municipio">
-                    <option value="" selected>Selecione o Município</option>
-                    @php($municipios = $registros->unique('dsc_municipio'))
-                    @php($municipios = $municipios->sortBy('dsc_municipio'))
-                    @foreach($municipios as $registro)
-                        <option>{{$registro->dsc_municipio}}</option>
-                    @endforeach
-                </select>
+                <input class="form-control" id="municipio" name="municipio" placeholder="Digite o Município">
                 <label for="municipio">Município</label>
             </div>
         </div>
@@ -151,30 +153,16 @@
     <br> 
 
     <div class="row g-2">
-        <div class="col">
+    <div class="col">
             <div class="form-floating">
-                <select class="form-select" id="cnpj" name="cnpj">
-                    <option value="" selected>Selecione o CNPJ do Credor</option>
-                    @php($ids_credor = $registros->unique('id_credor'))
-                    @php($ids_credor = $ids_credor->sortBy('id_credor'))
-                    @foreach($ids_credor as $registro)
-                        <option>{{$registro->id_credor}}</option>
-                    @endforeach
-                </select>
-                <label for="cnpj">CNPJ do Credor</label>
+                <input class="form-control" id="cnpj" name="id_credor" placeholder="Digite o CNPJ">
+                <label for="cnpj">Digite o CNPJ (somente números)</label>
             </div>
         </div>
         <div class="col">
             <div class="form-floating">
-                <select class="form-select" id="razaoSocial" name="razaoSocial">
-                    <option value="" selected>Selecione a Razão Social do Credor</option>
-                    @php($razoes_sociais = $registros->unique('credor'))
-                    @php($razoes_sociais = $razoes_sociais->sortBy('credor'))
-                    @foreach($razoes_sociais as $registro)
-                        <option>{{$registro->credor}}</option>
-                    @endforeach
-                </select>
-                <label for="cnpj">Razão Social do Credor</label>
+                <input class="form-control" id="razaoSocial" name="razaoSocial" placeholder="Digite a Razão Social">
+                <label for="razaoSocial">Razão Social</label>
             </div>
         </div>
     </div>
@@ -222,9 +210,11 @@
 @endif
 
 
-{{-- Javascript para datatable --}}
+{{-- Javascript para datatable e Mask --}}
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
 <script>
 $(document).ready(function() {
+    //DataTable
     $('#table').DataTable({
         dom: 'Bfrtip',
         buttons: [
@@ -234,6 +224,10 @@ $(document).ready(function() {
             url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
         }
     });
+
+    //mascara para cnpj
+    $('#cnpj').mask('00.000.000/0000-00', {reverse: true});
+
 } );
 </script>
 

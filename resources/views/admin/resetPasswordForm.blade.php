@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'PagRes - Redefinir Senha')
+@section('title', 'Pagamento de Resoluções - Redefinir Senha')
 
 @section('content')
 <h3>Redefinição de Senha</h3>

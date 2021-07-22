@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Imports\SheetsImport;
+use App\Imports\SheetsImportOld;
 use App\Models\BckpPagamentosOrcamentario;
 use App\Models\BckpRestosPagar;
 use App\Models\RestosPagar;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
@@ -107,8 +109,8 @@ class SheetsImportController extends Controller
          */
 
         //Apgando dados existentes nas tabelas
-        DB::table('pagamentos_orcamentarios')->truncate();
-        DB::table('restos_pagars')->truncate();
+        DB::table('pagamentos_orcamentarios')->whereYear('data_pgto', 2021)->delete();
+        DB::table('restos_pagars')->whereYear('data_pgto', 2021)->delete();
         
         //importando dados para as tabelas
         Excel::import(new SheetsImport, $file);
@@ -121,5 +123,4 @@ class SheetsImportController extends Controller
         return view('admin.index')->with('table', 'pagamentos_orcamentarios')->with('aba', 'upload');
     }
 
-    
 }

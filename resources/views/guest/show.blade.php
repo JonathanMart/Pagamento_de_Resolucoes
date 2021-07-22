@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'PagRes')
+@section('title', 'Pagamento de Resoluções')
 
 @php($registros = DB::table('restos_pagars')->get())
 

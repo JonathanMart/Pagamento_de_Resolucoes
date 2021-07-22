@@ -18,7 +18,7 @@
         <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" rel="stylesheet">
-        
+
         {{-- Fontes do Google --}}
         <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
 
@@ -35,35 +35,49 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+
+        <script src="https://kit.fontawesome.com/cabf0d962e.js" crossorigin="anonymous"></script>
+
            
     </head>
     <body style="background-color: #F6F6F8">
         {{-- Header da Página --}}
-        <header class="bg-dark">
-            Acesso de Administrador
+        <header class="bg-dark" style="color:#F6F6F8;">
         </header>
     
         {{-- Navbar --}}
-        <nav class="navbar navbar-light" style="background-color: #F6F6F8">
-            <div class="container">
-                <form class="form-inline">
-                    <div class="input-group">
-                        <input class="form-control mr-sm-2" type="search" placeholder="Buscar informações" aria-label="">
-                        <button class="btn btn-outline-secondary my-2 my-sm-0" type="submit">Buscar</button>
+        <nav class="navbar navbar-light" style="background-color: #212529">
+            <div class="container" id="center">
+                <div class="row" style="color:#F6F6F8; height: 90px;">
+                    <div class="col" onclick=" homepage() ">
+                        <p id="logo-text">Pagamento de Resoluções</p> 
+                        <p id="logo-text-ses"><strong>SES/MG</strong></p>
                     </div>
-                </form>
-            </div>        
+                </div>
+                <div class="left">
+                    <span class="text-white">{{ auth()->user()->name ?? " " }}</span>
+                </div>
+                <div class="right">
+                    @if(!auth()->check())
+                        <a href="{{ route('admin.index') }}"><i class="fas fa-user-lock fa-3x text-white"></i></a>
+                    @else
+                        <a href="{{ route('logout') }}"><i class="fas fa-user-slash fa-3x" style="color:darkred;"></i></a>
+                    @endif
+                </div>
+            </div> 
         </nav>
         <br>
         
         <div class="container">
             @yield('content')
             <br>
-            @if($_SERVER["REQUEST_URI"] != '/')
-                <a class="btn btn-primary" href="{{ route('guest.index') }}" role="button">Página Inicial</a>
-            @endif  
-            <br>  
         </div>
+
+        <script>
+            function homepage(){
+                window.location.href = "http://pagamentoderesolucoes.saude.mg.gov.br//";
+            }
+        </script>
 
     </body>
 

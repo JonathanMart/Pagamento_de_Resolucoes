@@ -1,45 +1,43 @@
 @extends('layouts.login')
 
-@section('title', 'PagRes - Login')
+@section('title', 'Pagamento de Resoluções - Login')
 
 @section('content')
 <main class="login-form">
-    <div class="row justify-content-center">
-        <div class="col-md-4">
-            <div class="card">
-                <h3 class="card-header text-center">Login</h3>
-                <div class="card-body">
-                    <form method="POST" action="{{ route('auth') }}">
-                        @csrf
-                        <div class="form-group mb-3">
-                            <input type="text" placeholder="Email" id="email" class="form-control" name="email" required
-                                autofocus>
-                            @if ($errors->has('email'))
-                            <span class="text-danger">{{ $errors->first('email') }}</span>
-                            @endif
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <input type="password" placeholder="Senha" id="password" class="form-control" name="password" required>
-                            @if ($errors->has('password'))
-                            <span class="text-danger">{{ $errors->first('password') }}</span>
-                            @endif
-                        </div>
-
-                        <div class="form-group mb-3">
-                            <div class="checkbox">
-                                <label>
-                                    <input type="checkbox" name="remember"> Lembre-se de mim
-                                </label>
-                            </div>
-                        </div>
-
-                        <div class="d-grid mx-auto">
-                            <button type="submit" class="btn btn-dark btn-block">Entrar</button>
-                        </div>
-                    </form>
-
+    <div class="card"id="telaLogin">
+        <img src="{{ url('img/logo3.png') }}" class="card-img-top" alt="Logo">
+        <div class="card-body">
+            <form method="POST" action="{{ route('auth') }}">
+                @csrf
+                @if($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <div class="form-floating mb-3">
+                    <input name="email" type="email" class="form-control" id="floatingInput" placeholder="nome@email.com">
+                    <label for="floatingInput">Email</label>
                 </div>
+                <div class="form-floating">
+                    <input name="password" type="password" class="form-control" id="floatingPassword" placeholder="Senha">
+                    <label for="floatingPassword">Senha</label>
+                </div>
+                <div class="form-check form-switch">
+                    <input name="remember" class="form-check-input" type="checkbox" id="rememberMe">
+                    <label class="form-check-label" for="rememberMe">Lembrar de mim</label>
+                </div>
+                <br>
+                <div class="d-grid ">
+                    <button type="submit" class="btn btn-outline-primary btn-block">Entrar</button>
+                </div>
+            </form>  
+
+            <div class="d-grid" style="margin-top: 5px;">
+                <a href="{{ route('resetPasswordEmail') }}" class="btn btn-outline-danger btn-block">Esqueci Minha Senha</a>
             </div>
         </div>
     </div>

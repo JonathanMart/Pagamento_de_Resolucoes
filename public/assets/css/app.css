@@ -10,3 +10,41 @@
     box-shadow: 0 0 10px rgba(0,0,0,0.15);
     padding-top: 0;
 }
+
+#telaLogin{
+    width:350px; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 1px 5px 30px rgb(195, 195, 195);
+}
+
+#center{
+    align-items: center;
+    justify-content: center;
+}
+
+#logo-text{
+    text-align: center;
+    font-size: x-large;
+    padding-top: 15px;
+    margin-bottom: 0px;
+}
+
+#logo-text-ses{
+    color: darkred;
+    text-align: center;
+    font-size: x-large;
+    padding-top: 0px;
+}
+
+.right{
+    position:absolute;
+	right:200px;
+}
+
+.left{
+    position:absolute;
+    left:200px;
+}

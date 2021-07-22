@@ -1,5 +1,6 @@
 <?php
 
+use Carbon\Carbon;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -16,6 +17,8 @@ class CreateBckpRestosPagarsTable extends Migration
         Schema::create('bckp_restos_pagars', function (Blueprint $table) {
             $table->id();
 
+            $table->integer('ano')->default(Carbon::now()->year);
+            
             $table->unsignedBigInteger('cod_ue')->nullable();
             $table->string('nome_ue')->nullable();
             $table->string('ref_contrato')->nullable();
