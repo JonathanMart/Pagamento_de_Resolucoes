@@ -7,7 +7,7 @@
         
         <title>@yield('title')</title>
 
-        {{-- CSS da Aplicação --}}
+	{{-- CSS da Aplicação --}}
         <link rel="stylesheet" href="{{ url('assets/css/app.css') }}">
         
         {{-- CSS do Bootstrap --}}
@@ -35,6 +35,11 @@
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.html5.min.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
+
+
+	{{--Colums Visibility--}}
+	<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.colVis.min.js"></script>	
+
 
         <script src="https://kit.fontawesome.com/cabf0d962e.js" crossorigin="anonymous"></script>
 

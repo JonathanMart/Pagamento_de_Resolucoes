@@ -2,6 +2,8 @@
 
 @section('title', 'Pagamento de Resoluções')
 
+@php($tabela_consulta = 0)
+
 @section('content')
 <h3>Pagamento de Resoluções</h3>
 <hr>
@@ -39,6 +41,7 @@
 
 {{-- Resgatando dados do BD --}}
 @php( $tipoConsulta == 1 ? $registros = DB::table('restos_pagars')->get() : $registros = DB::table('pagamentos_orcamentarios')->get() )
+@php( $tipoConsulta == 1 ? $tabela_consulta = 1 : $tabela_consulta = 2 )
 
 {{-- Formulario de Pesquisa --}}
 <form action="{{ route('guest.search') }}" method="post">
@@ -72,13 +75,14 @@
             <div class="form-floating">
                 <select class="form-select" id="ano_pagamento" name="data_pgto">
                     <option value="" selected>Selecione o ano de Pagamento</option>
-                    @php($anos_pagamento=array())
-                    @php($datas_pagamento = DB::table('restos_pagars')->pluck('data_pgto'))
-                    @foreach($datas_pagamento as $data)
-                        @php($anos_pagamento[]=substr($data, 0, 4)) 
-                    @endforeach
-                    @php($anos = array_unique($anos_pagamento))
-                    @foreach($anos as $ano)
+                    @php($anos = $registros->unique('data_pgto'))
+		    @php($anos = $anos->sortBy('data_pgto'))
+                    @php($anos_pgto = array())
+		    @foreach($anos as $ano)
+		    	@php($anos_pgto[] = substr($ano->data_pgto, 0, 4))
+   		    @endforeach
+		    @php($anos_pgto_unico = array_unique($anos_pgto))
+		    @foreach($anos_pgto_unico as $ano)
                         <option>{{ $ano }}</option>
                     @endforeach
                 </select>
@@ -89,32 +93,26 @@
 
     <br>
     
-    <div class="row g-3">
+    <div class="row g-2">
         <div class="col">
             <div class="form-floating">
-                <input class="form-control" id="numeroResolucao" name="num_empenho" placeholder="Digite o Nº da Resolução">
-                <label for="numeroResolucao">Nº da Resolução</label>
+                <input class="form-control" id="numeroResolucao" name="ref_contrato_saida" placeholder="Digite o Nº da Resolução">
+                <label for="numeroResolucao">Digite o Nº da Resolução (no formato xxxx/xxxx) </label>
             </div>
         </div>
         <div class="col">
-            <div class="form-floating">
-                <select class="form-select" id="ue" name="cod_ue">
-                    <option value="" selected>Selecione a Unidade Executora</option>
-                    @php($unidades_executoras = $registros->unique('nome_ue'))
-                    @php($unidades_executoras = $unidades_executoras->sortBy('nome_ue'))
-                    @foreach($unidades_executoras as $registro)
-                        <option>{{ $registro->cod_ue . ' - ' . $registro->nome_ue}}</option>
+	    <div class="form-floating">
+                <select class="form-select" id="dsc_municipio" name="dsc_municipio">
+                    <option value="" selected>Selecione o municipio</option>
+                    @php($municipios = $registros->unique('dsc_municipio'))
+                    @php($municipios = $municipios->sortBy('dsc_municipio'))
+                    @foreach($municipios as $registro)
+                        <option>{{ $registro->dsc_municipio}}</option>
                     @endforeach 
                 </select>
-                <label for="ue">Unidade Executora</label>
+                <label for="dsc_municipio">Municipio</label>
             </div>
-        </div>
-        <div class="col">
-            <div class="form-floating">
-                <input class="form-control" id="municipio" name="municipio" placeholder="Digite o Município">
-                <label for="municipio">Município</label>
-            </div>
-        </div>
+        </div>       
     </div>
 
     <br>
@@ -122,12 +120,12 @@
     <div class="row g-2">
         <div class="col">
             <div class="form-floating">
-                <select class="form-select" id="projetoAtividade" name="dsc_atv">
+                <select class="form-select" id="projetoAtividade" name="cod_atv">
                     <option value="" selected>Selecione o Projeto/Atividade</option>
                     @php($projetos = $registros->unique('cod_atv'))
                     @php($projetos = $projetos->sortBy('cod_atv'))
                     @foreach($projetos as $registro)
-                        <option>{{$registro->cod_atv . ' - ' . $registro->dsc_atv}}</option>
+                        <option value="{{ $registro->cod_atv  }}"  >{{$registro->cod_atv . ' - ' . $registro->dsc_atv}}</option>
                     @endforeach
                 </select>
                 <label for="projetoAtividade">Projeto/Atividade</label>
@@ -135,13 +133,13 @@
         </div>
         <div class="col">
             <div class="form-floating">
-                <select class="form-select" id="upg" name="dsc_upg">
+                <select class="form-select" id="upg" name="cod_upg">
                     <option value="" selected>Selecione a UPG</option>
                     @php($upgs = $registros->unique('cod_upg'))
                     @php($upgs = $upgs->sortBy('cod_upg'))
                     @foreach($upgs as $registro)
                         @if($registro->cod_upg != 0)
-                            <option>{{$registro->cod_upg . ' - ' . $registro->dsc_upg}}</option>
+                            <option value="{{ $registro->cod_upg  }}"  >{{$registro->cod_upg . ' - ' . $registro->dsc_upg}}</option>
                         @endif
                     @endforeach
                 </select>
@@ -152,7 +150,7 @@
 
     <br> 
 
-    <div class="row g-2">
+    <div class="row g-3">
     <div class="col">
             <div class="form-floating">
                 <input class="form-control" id="cnpj" name="id_credor" placeholder="Digite o CNPJ">
@@ -161,10 +159,16 @@
         </div>
         <div class="col">
             <div class="form-floating">
-                <input class="form-control" id="razaoSocial" name="razaoSocial" placeholder="Digite a Razão Social">
-                <label for="razaoSocial">Razão Social</label>
+                <input class="form-control" id="credor" name="credor" placeholder="Digite a Razão Social">
+                <label for="credor">Razão Social (sem acentuação)</label>
             </div>
         </div>
+	<div class="col">
+		<div class="form-floating">
+			<input class="form-control" id="conta" name="conta" placeholder="Digite o número da conta">
+			<label for="conta">Conta Corrente (sem pontuação)</label>
+		</div>
+	</div>
     </div>
 
     <br> 
@@ -180,32 +184,74 @@
 
 <hr>
 
-<table id="table" class="table table-striped" style="width:100%">
+<table id="table" class="table table-striped" style="width: 100%;">
     <thead class="table-primary">
         <tr>
             @if(isset($consulta[0]['ano_empenho']))<th scope="col">Ano Empenho</th>@endif
-            <th scope="col">Unidade Executora</th>
-            <th scope="col">Municipio</th>
-            <th scope="col">Projeto/Atividade</th>
-            <th scope="col">UPG</th>
-            <th scope="col">Razão Social</th>
-            <th scope="col">Ações</th>
+	    <th scope="col">Município</th>
+            <th scope="col">Cód. Projeto/<br>Atividade</th>
+	    <th scope="col">Projeto/<br>Atividade</th>
+	    <th scope="col">Cód. Fonte</th>
+	    <th scope="col">Cód. UPG</th>
+	    <th scope="col">UPG</th>	    
+	    <th scope="col">Nº de Empenho</th>
+	    <th scope="col">Nº de Documento de Pagamento</th>
+	    <th scope="col">Data de Pagamento</th>
+	    @if(isset($consulta[0]['ano_empenho']))<th scope="col">Valor Pago Não Processado</th>@endif
+	    @if(isset($consulta[0]['ano_empenho']))<th scope="col">Valor Pago Processado</th>@else<th scope="col">Valor Pago Financeiro</th>@endif
+	    <th scope="col">Cód. Banco Creditado</th>
+	    <th scope="col">Cód. Agência Creditada</th>
+	    <th scope="col">Conta Corrente Creditada</th>
+	    <th scope="col">Situação da Ordem de Pagamento</th>
+	    <th scope="col">CNPJ/CPF do Credor</th>
+	    <th scope="col">Razão Social</th>
+	    <th scope="col">N° da Resolução</th>
+ 	    <th scope="col">Ações</th>
         </tr>
     </thead>
     <tbody>
         @foreach($consulta as $registro)
         <tr>  
             @if(isset($registro['ano_empenho']))<td>{{ $registro['ano_empenho'] }}</td>@endif
-            <td>{{ $registro['nome_ue'] }}</td>
-            <td>{{ $registro['dsc_municipio'] }}</td>
-            <td>{{ $registro['dsc_atv'] }}</td>
+	    <td>{{ $registro['dsc_municipio'] }}</td>
+            <td>{{ $registro['cod_atv'] }}</td>
+	    <td>{{ $registro['dsc_atv'] }}</td>
+	    <td>{{ $registro['cod_fonte'] }}</td>
+	    <td>{{ $registro['cod_upg'] }}</td>
             <td>{{ $registro['dsc_upg'] ?? 'N/D' }} </td> 
+	    <td>{{ $registro['num_empenho'] }}</td>
+            <td>{{ $registro['num_dcto_pgto'] }}</td>
+	    @php( $ano = substr($registro['data_pgto'], 0, 4))
+	    @php( $mes = substr($registro['data_pgto'], 5, 2))
+	    @php( $dia = substr($registro['data_pgto'], 8, 2))
+	    <td>{{ $dia . '/' . $mes . '/' . $ano }}</td>
+	    @if(isset($registro['ano_empenho']))<td>{{ 'R$ ' . number_format($registro['valor_pago_nproces'], $decimals=2, $dec_pont=',', $thousand_sep='.') }}</td>@endif
+	    @if(isset($registro['ano_empenho']))
+		<td>{{ 'R$ ' . number_format($registro['valor_pago_proces'], $decimals=2, $dec_point=',', $thousand_sep='.') }}</td>
+	    @else 
+		<td>{{ 'R$ ' . number_format( $registro['valor_pago_financeiro'], $decimals=2, $dec_pont=',', $thousand_sep='.') }}</td> 
+	    @endif
+	    <td>{{ $registro['cod_banco'] }}</td>
+	    <td>{{ $registro['cod_agencia'] }}</td>
+	    <td>{{ $registro['conta'] }}</td>
+	    <td>{{ $registro['dsc_sit_pagamento'] }}</td>
+	    <td>{{ $registro['id_credor'] }} </td>
             <td>{{ $registro['credor'] }}</td>
-            <td><a href="{{ route('guest.show', ['id' => $registro['id']]) }}" class="btn btn-primary">Visualizar</a></td>
+	    <td>{{ $registro['ref_contrato_saida'] }}</td>
+	    @php($tipo_consulta = $tabela_consulta) 
+            <td><a href="{{ route('guest.show', ['tipo_consulta' => $tabela, 'id' => $registro['id']]) }}" class="btn btn-primary">Visualizar</a></td>
         </tr>
         @endforeach
     </tbody>
 </table>
+
+@if(isset($onsulta[0]['ano_empenho']))
+    @php($id_tipo_consulta = 1)
+@else
+    @php($id_tipo_consulta = 2)
+@endif
+
+<input type="hidden" id="id_tipo_consulta" name="id_tipo_consulta" value="{{ $id_tipo_consulta }}"> 
 
 @endif
 
@@ -218,16 +264,31 @@ $(document).ready(function() {
     $('#table').DataTable({
         dom: 'Bfrtip',
         buttons: [
-            'csv', 'excel',
+           {
+	       extend:'csv',
+	       text: 'CSV',	
+	   },
+	   {
+	       extend: 'excel',
+	       text: 'Excel',	
+	   },
+	   {
+	       extend: 'colvis',
+	       text: 'Selecionar Colunas',
+	   },      
         ],
         language: {
             url: "//cdn.datatables.net/plug-ins/9dcbecd42ad/i18n/Portuguese-Brasil.json"
-        }
+        },
+	responsive: true,
+	"columnDefs": [
+	    {"visible": false, "targets": [4, 5, 6, 7, 8, 12, 13, 14, 15]}
+	]
     });
 
     //mascara para cnpj
     $('#cnpj').mask('00.000.000/0000-00', {reverse: true});
-
+    $('#numeroResolucao').mask('0000/0000', {reverse: true});
 } );
 </script>
 

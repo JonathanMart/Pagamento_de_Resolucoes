@@ -19,7 +19,7 @@ class CreatePagamentosOrcamentariosTable extends Migration
 
             $table->unsignedBigInteger('cod_ue')->nullable(); //row[0]
             $table->string('nome_ue')->nullable(); //row[0]
-            $table->string('ref_contrato')->nullable(); //row[1]
+            #$table->string('ref_contrato')->nullable(); //row[1]
             $table->unsignedBigInteger('cod_atv')->nullable(); //row[2]
             $table->string('dsc_atv')->nullable(); //row[3]
             $table->unsignedBigInteger('cod_fonte')->nullable();

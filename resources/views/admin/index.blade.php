@@ -63,7 +63,7 @@
 
 <div class="alert alert-primary" role="alert">
   @php($last_id = DB::table('restos_pagars')->orderBy('id', 'desc')->first())
-  @php($last_id = $last_id->id)
+  @php($last_id != null ? $last_id = $last_id->id : null )
   @php($date = DB::table('restos_pagars')->where('id', $last_id)->value('updated_at'))
   @php($ano = substr($date, 0, 4))
   @php($mes = substr($date, 5, 2))
@@ -102,8 +102,7 @@
               <td>
                 {{ $registro->cod_ue }}.
                 {{ $registro->cod_atv }}.
-                {{ $registro->cod_fonte }}.
-                {{ $registro->cod_procedec }} 
+                {{ $registro->cod_fonte }} 
               </td>
               <td>{{ $registro->num_empenho }}</td>
               <td>{{ $registro->valor_pago_proces }}</td>

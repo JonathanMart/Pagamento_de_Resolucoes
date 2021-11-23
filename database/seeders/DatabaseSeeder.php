@@ -14,7 +14,7 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name'=>'desenvolvimento', 
             'email'=>'desenvolvimento@saude.mg.gov.br',
-            'password'=>Hash::make('D3senvolvimen70@2021'),
+            'password'=>Hash::make('desenvolvimento@2021'),
         ]);
     }
 }

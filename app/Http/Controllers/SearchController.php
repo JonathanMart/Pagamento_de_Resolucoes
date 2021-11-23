@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Http\Requests\SearchRequest;
+use App\Models\PagamentosOrcamentario; 
+use App\Models\RestosPagar;
 
 class SearchController extends Controller
 {
@@ -29,64 +31,66 @@ class SearchController extends Controller
 
     public function search(Request $request)
     {
-        $request_keys = array_keys($request->all()); //chaves do array de request
-        $requisicoes = $request->all(); 
-        
-        $search_keys=array(); //keys de consulta
 
-        $search = array();
-            
-        if($requisicoes['tipo_consulta'] == "Pagamentos de Restos a Pagar"){
-            foreach($request_keys as $key){
-                if ($key != '_token' and $key != 'tipo_consulta' and $requisicoes[$key] != null){
-                    $consulta = DB::table('restos_pagars')->where($key, $requisicoes[$key]);
-                    $search_keys[] = $key;
-                }
-            }
-        }else{
-            foreach($request_keys as $key){
-                if ($key != '_token' and $key != 'tipo_consulta' and $requisicoes[$key] != null){
-                    $consulta = DB::table('pagamentos_orcamentarios')->where($key, $requisicoes[$key]);
-                    $search_keys[] = $key;
-                }
-            }
-        }
+	if($request->tipo_consulta == 'Pagamentos de Restos a Pagar'){
+		
+		$tabela = 1;
+	
+		$query = RestosPagar::query();
+		$termos_consulta = $request->only('ano_empenho', 'data_pgto', 'ref_contrato_saida', 'cod_ue', 'dsc_municipio', 'cod_atv', 'cod_upg', 'id_credor', 'credor', 'conta');
+		
+		foreach($termos_consulta as $nome => $valor){
+			if($valor){
+				if($nome == 'data_pgto'){
+					$query->whereYear($nome, $valor);
+				}elseif($nome == 'id_credor'){
+					#$valor = preg_replace('/[^0-9]/', '', $valor);
+					$query->where($nome, $valor);
+				}elseif($nome == 'credor'){
+					$valor = strtoupper($valor);
+					$query->where($nome, $valor);
+				}else{
+					$query->where($nome, $valor); 
+				}
+			}
+		}
+	}else{
 
-        if(isset($consulta)){
-            $queries = json_decode(json_encode($consulta->get()), true);
-        
-            $parametro = count($search_keys);
-            foreach($queries as $query){
-                $verificacoes = 0;
-                $query_key = array_keys($query); 
-                foreach($query_key as $key){ //percorrendo um bloco do vetor
-                    foreach($search_keys as $search_key){
-                        if($key == $search_key AND $query[$key] == $requisicoes[$search_key]){
-                            $verificacoes ++; 
-                            if($verificacoes == $parametro){
-                                $search[] = $query;
-                            }
-                        }
-                    }
-                }
-            }
+		$tabela = 2;
+		
+		$query = PagamentosOrcamentario::query();
+		$termos_consulta = $request->only('data_pgto', 'ref_contrato_saida', 'cod_ue', 'dsc_municipio', 'cod_atv', 'cod_upg', 'id_credor', 'credor', 'conta');
 
-        }else{
-            if($requisicoes['tipo_consulta'] == 'Pagamentos de Restos a Pagar'){
-                $search = json_decode(json_encode(DB::table('restos_pagars')->get()), true);
-            }else{
-                $search = json_decode(json_encode(DB::table('pagamentos_orcamentarios')->get()), true);
-            }
-        }
-        
-        
-        return view('guest.index')->with('consulta', $search);
+		foreach($termos_consulta as $nome => $valor){
+			if($valor){
+				if($nome == 'data_pgto'){
+					$query->whereYear($nome, $valor);
+				}elseif($nome == 'id_credor'){
+					$valor = preg_replace('/[^0-9]/', '', $valor);
+						$query->where($nome, $valor);
+				}elseif($nome == 'credor'){
+					$valor = strtoupper($valor);
+					//dd($valor);
+					$query->where($nome, $valor);
+				}else{
+					$query->where($nome, $valor);
+				}
+			}
+		}
+	}      
+	
+	$resultado = $query->get();        
+
+	return view('guest.index')->with('consulta', $resultado)->with('tabela', $tabela);
     }
 
-    public function show($id){
-
-        $registro = json_decode(json_encode(DB::table('restos_pagars')->find($id)), true);
-        //var_dump($registro);
-        return view($view='guest.show', $data=$registro);
+    public function show($tipo_consulta, $id){
+	
+	if($tipo_consulta == 1){
+	    $registro = json_decode(json_encode(DB::table('restos_pagars')->find($id)), true);    	
+	} elseif($tipo_consulta == 2){
+	   $registro = json_decode(json_encode(DB::table('pagamentos_orcamentarios')->find($id)), true);
+        }
+        return view($view='guest.show', $data=$registro, $mergeData=array('tipo_consulta' => $tipo_consulta));
     }
 }

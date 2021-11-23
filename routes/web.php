@@ -26,7 +26,7 @@ Route::post('/admin/reset-password', [App\Http\Controllers\ForgotPasswordControl
 Route::get('/', [App\Http\Controllers\SearchController::class, 'index'])->name('guest.index');
 Route::get('/consulta/{tipo}', [App\Http\Controllers\SearchController::class, 'tipoConsulta'])->name('guest.tipoConsulta');
 Route::post('/consulta/resultado', [App\Http\Controllers\SearchController::class, 'search'])->name('guest.search');
-Route::get('/show/{id}', [App\Http\Controllers\SearchController::class, 'show'])->name('guest.show');
+Route::get('/show/{tipo_consulta}/{id}', [App\Http\Controllers\SearchController::class, 'show'])->name('guest.show');
  
 Route::get('/admin', [App\Http\Controllers\SheetsImportController::class, 'index'])->name('admin.index');
 Route::post('/admin', [App\Http\Controllers\SheetsImportController::class, 'store'])->name('admin.store');

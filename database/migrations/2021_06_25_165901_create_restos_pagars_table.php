@@ -23,7 +23,7 @@ class CreateRestosPagarsTable extends Migration
             $table->unsignedInteger('cod_atv')->nullable();
             $table->string('dsc_atv')->nullable();
             $table->unsignedInteger('cod_fonte')->nullable();
-            $table->unsignedInteger('cod_procedec')->nullable();
+            #$table->unsignedInteger('cod_procedec')->nullable();
             $table->string('ref_contrato_saida')->nullable();
             $table->unsignedBigInteger('cod_upg')->nullable();
             $table->string('dsc_upg')->nullable();
