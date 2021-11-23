@@ -2,6 +2,24 @@
     font-family: 'Roboto';
 }
 
+.font-nav-bar{
+    margin-right: 34px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    font-family: 'Lato';
+    color: #fff;
+    font-size: 10px;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.navbar .custom{
+    width: 150%;
+    margin: 0 auto;
+}
+
 #component {
     padding: 15px;
         padding-top: 15px;
@@ -48,3 +66,5 @@
     position:absolute;
     left:200px;
 }
+
+

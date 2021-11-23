@@ -7,7 +7,7 @@
         
         <title>@yield('title')</title>
 
-	{{-- CSS da Aplicação --}}
+    	{{-- CSS da Aplicação --}}
         <link rel="stylesheet" href="{{ url('assets/css/app.css') }}">
         
         {{-- CSS do Bootstrap --}}
@@ -48,31 +48,23 @@
     <body style="background-color: #F6F6F8">
         {{-- Header da Página --}}
         <header class="bg-dark" style="color:#F6F6F8;">
-        </header>
-    
-        {{-- Navbar --}}
-        <nav class="navbar navbar-light" style="background-color: #212529">
-            <div class="container" id="center">
-                <div class="row" style="color:#F6F6F8; height: 90px;">
-                    <div class="col" onclick=" homepage() ">
-                        <p id="logo-text">Pagamento de Resoluções</p> 
-                        <p id="logo-text-ses"><strong>SES/MG</strong></p>
+            <nav class="navbar-collapse navbar-expand-sm navbar-dark bg-dark">
+                <div class="container">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">CONTRASTE</a></li> 
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">TRANSPARÊNCIA</a></li>
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">ACESSIBILIDADE</a></li> 
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">MAPA DA APLICAÇÃO</a></li>
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">UTILIZAÇÃO DO PAGAMENTO DE RESOLUÇÕES</a></li> 
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">OUTROS SISTEMAS</a></li> 
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">ACESSO DO ADMINISTRADOR</a></li> 
+                        </ul>
                     </div>
                 </div>
-                <div class="left">
-                    <span class="text-white">{{ auth()->user()->name ?? " " }}</span>
-                </div>
-                <div class="right">
-                    @if(!auth()->check())
-                        <a href="{{ route('admin.index') }}"><i class="fas fa-user-lock fa-3x text-white"></i></a>
-                    @else
-                        <a href="{{ route('logout') }}"><i class="fas fa-user-slash fa-3x" style="color:darkred;"></i></a>
-                    @endif
-                </div>
-            </div> 
-        </nav>
-        <br>
-        
+            </nav>
+        </header>
+    
         <div class="container">
             @yield('content')
             <br>
