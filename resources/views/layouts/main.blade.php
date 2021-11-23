@@ -65,7 +65,8 @@
             </nav>
         </header>
 
-        <nav class="navbar navbar-light navbar-sec">
+        {{-- NavBar de Logo e Busca --}}
+        <nav class="navbar navbar-light">
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <img src="{{ url('img/logo-secretaria-de-saude-mg-pequena.png') }}" alt="Secretaria de Estado de Saúde" class="d-inline-block align-text-top">
@@ -76,7 +77,19 @@
                 </form>
             </div>
         </nav>
-  
+
+        <hr>
+
+        {{-- Menu Principal --}}
+        <nav class="navbar-collapse navbar-expand-sm navbar-light sombreado">
+            <div class="container">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Pagamentos Orçamentarios</a></li> 
+                    <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Restos a Pagar</a></li>
+                </ul>
+            </div>
+        </nav>
+
         <br>
 
         <div class="container">
