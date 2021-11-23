@@ -45,7 +45,7 @@
 
            
     </head>
-    <body style="background-color: #F6F6F8">
+    <body style="background-color: #FFF">
         {{-- Header da Página --}}
         <header class="bg-dark" style="color:#F6F6F8;">
             <nav class="navbar-collapse navbar-expand-sm navbar-dark bg-dark">
@@ -65,18 +65,18 @@
             </nav>
         </header>
 
-        <nav class="navbar navbar-light" style="background-color: #FFF">
+        <nav class="navbar navbar-light navbar-sec">
             <div class="container">
                 <a class="navbar-brand" href="#">
                     <img src="{{ url('img/logo-secretaria-de-saude-mg-pequena.png') }}" alt="Secretaria de Estado de Saúde" class="d-inline-block align-text-top">
                 </a>
                 <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Busca" aria-label="Buscar">
-                    <button class="btn btn-outline-success" type="submit">Busca</button>
+                    <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Buscar">
+                    <button class="btn btn-outline-danger" type="submit">Busca</button>
                 </form>
             </div>
         </nav>
-        
+  
         <br>
 
         <div class="container">
