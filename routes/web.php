@@ -12,7 +12,6 @@ Route::middleware(['auth'])->group(function ()
 });
 
 //Rotas de Autenticação
-
 Route::get('/admin/login', [App\Http\Controllers\LoginController::class, 'loginForm'])->name('loginForm');
 Route::post('/admin/login', [App\Http\Controllers\LoginController::class, 'authenticate'])->name('auth');
 Route::get('/admin/logout', [App\Http\Controllers\LoginController::class, 'logout'])->name('logout');
@@ -34,3 +33,5 @@ Route::get('/admin/table/pagamentos_orcamentarios', [App\Http\Controllers\Sheets
 
 Route::get('/admin/export', [App\Http\Controllers\SheetsExportController::class, 'export'])->name('export');
 
+//Rotas de Pagamentos Orcamentarios
+Route::get('pagamentos-orcamentarios', [App\Http\Controllers\PagamentosOrcamentarioController::class, 'index'])->name('pagamentos-orcamentarios.index');

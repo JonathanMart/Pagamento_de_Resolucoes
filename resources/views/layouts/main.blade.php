@@ -84,7 +84,7 @@
         <nav class="navbar-collapse navbar-expand-sm navbar-light sombreado">
             <div class="container">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Pagamentos Orçamentarios</a></li> 
+                    <li class="nav-item"> <a class="nav-link active" aria-current="page" href="{{ route('pagamentos-orcamentarios.index') }}">Pagamentos Orçamentarios</a></li> 
                     <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Restos a Pagar</a></li>
                 </ul>
             </div>
