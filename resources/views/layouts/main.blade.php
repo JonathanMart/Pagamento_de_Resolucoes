@@ -64,7 +64,21 @@
                 </div>
             </nav>
         </header>
-    
+
+        <nav class="navbar navbar-light" style="background-color: #FFF">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <img src="{{ url('img/logo-secretaria-de-saude-mg-pequena.png') }}" alt="Secretaria de Estado de Saúde" class="d-inline-block align-text-top">
+                </a>
+                <form class="d-flex">
+                    <input class="form-control me-2" type="search" placeholder="Busca" aria-label="Buscar">
+                    <button class="btn btn-outline-success" type="submit">Busca</button>
+                </form>
+            </div>
+        </nav>
+        
+        <br>
+
         <div class="container">
             @yield('content')
             <br>
