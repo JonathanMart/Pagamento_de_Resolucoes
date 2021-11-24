@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PagamentosOrcamentario;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PagamentosOrcamentarioController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Pagina inicial dos Pagamentos Orcamentarios.
      *
      * @return \Illuminate\Http\Response
      */
@@ -17,68 +19,44 @@ class PagamentosOrcamentarioController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
+     * Realiza a consulta.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function search(Request $request)
     {
-        //
+     
+        $query = PagamentosOrcamentario::query();
+        $termos_consulta = $request->only('data_pgto', 'ref_contrato_saida', 'cod_ue', 'dsc_municipio', 'cod_atv', 'cod_upg', 'id_credor', 'credor', 'conta');
+
+        foreach($termos_consulta as $nome => $valor){
+            if($valor){
+                if($nome == 'data_pgto'){
+                    $query->whereYear($nome, $valor);
+                }elseif($nome == 'id_credor'){
+                    $valor = preg_replace('/[^0-9]/', '', $valor);
+                        $query->where($nome, $valor);
+                }elseif($nome == 'credor'){
+                    $valor = strtoupper($valor);
+                    //dd($valor);
+                    $query->where($nome, $valor);
+                }else{
+                    $query->where($nome, $valor);
+                }
+            }
+        }
+                   
+        $resultado = $query->get();        
+    
+        return view('pagamentos-orcamentarios.consulta')->with('consulta', $resultado);
+ 
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    public function visualizar($id)
     {
-        //
-    }
+        $registro = json_decode(json_encode(DB::table('pagamentos_orcamentarios')->find($id)), true);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
+        return view('pagamentos-orcamentarios.visualizar', $data=$registro);
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+    
 }
