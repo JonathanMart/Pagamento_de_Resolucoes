@@ -1,8 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Pagamento de Resoluções')
-
-@php($registros = DB::table('restos_pagars')->get())
+@section('title', 'Pagamento de Resoluções - Visualizar Pagamento de Restos a Pagar')
 
 @section('content')
 <h3>Visualizar </h3>
@@ -56,29 +54,19 @@
     </div>
 </div>
 <br>
-<div class="row g-5">
-    @if($tipo_consulta == 1)
-    	<div class="col">
-        	<label for="ano_empenho" class="form-label">Ano do Empenho</label>
-        	<input class="form-control" id="ano_empenho" type="text" value="{{ $ano_empenho }}" disabled readonly>
-    	</div>
-    @endif
+<div class="row g-5">    
+    <div class="col">
+        <label for="ano_empenho" class="form-label">Ano do Empenho</label>
+        <input class="form-control" id="ano_empenho" type="text" value="{{ $ano_empenho }}" disabled readonly>
+    </div>   
     <div class="col">
         <label for="num_empenho" class="form-label">Nº do Empenho</label>
         <input class="form-control" id="num_empenho" type="text" value="{{ $num_empenho }}" disabled readonly>
     </div>
-    @if($tipo_consulta == 1)
     <div class="col">
-	<label for="num_ordem_pgto" class="form-label">Nº da Ordem de Pagamento</label>
-	<input class="form-control" id="num_ordem_pgto" type="text" value="{{ $num_ordem_pgto }}" disabled readonly>
+        <label for="num_ordem_pgto" class="form-label">Nº da Ordem de Pagamento</label>
+        <input class="form-control" id="num_ordem_pgto" type="text" value="{{ $num_ordem_pgto }}" disabled readonly>
     </div>
-    @else
-    <div class="col">
-        <label for="num_ordem_pgto" class="form-label">Nº Documento Pagamento</label>
-        <input class="form-control" id="num_ordem_pgto" type="text" value="{{ $num_dcto_pgto }}" disabled readonly>
-    </div>
-    @endif
-    @if($tipo_consulta == 1)
     <div class="col">
         <label for="valor_pago_nproces" class="form-label">Valor Pago não Processado</label>
         <input class="form-control" id="valor_pago_nproces" type="text" value="{{ $valor_pago_nproces }}" disabled readonly>
@@ -87,12 +75,6 @@
         <label for="valor_pago_proces" class="form-label">Valor Pago Processado</label>
         <input class="form-control" id="valor_pago_proces" type="text" value="{{ $valor_pago_proces }}" disabled readonly>
     </div>
-    @else
-    <div class="col">
-        <label for="valor_pago_financeiro" class="form-label">Valor Pago Financeiro</label>
-        <input class="form-control" id="valor_pago_financeiro" type="text" value="{{ $valor_pago_financeiro  }}" disabled readonly>
-    </div>
-    @endif
 </div>
 <br>
 <div class="row g-5">
@@ -125,6 +107,13 @@
         <input class="form-control" id="dsc_municipio" type="text" value="{{ $dsc_municipio }}" disabled readonly>
     </div>
 </div>
+
+<br>
+
+<button type="button" class="btn btn-primary" onclick="history.go(-1)"><i class="fas fa-backward"></i>{{ ' '. 'Voltar' }}</button>
+
+
+<br>
 
 @endsection
 

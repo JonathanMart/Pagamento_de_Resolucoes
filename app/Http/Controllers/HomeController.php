@@ -31,7 +31,7 @@ class HomeController extends Controller
 
     public function perguntas_frequentes()
     {
-        //
+        return view('guest.perguntas-frequentes');
     }
 
 
@@ -42,7 +42,12 @@ class HomeController extends Controller
 
     public function utilizacao_do_pagamento_de_resolucoes()
     {
-        //
+        return view('guest.utilizacao-pagamento-resolucoes');
+    }
+
+    public function outros_sistemas()
+    {
+        return view('guest.outros-sistemas');
     }
 
 }

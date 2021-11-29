@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial scale=1">
-        
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
         
         <title>@yield('title')</title>
 
@@ -18,6 +18,9 @@
         <link href="https://cdn.datatables.net/1.10.25/css/dataTables.bootstrap5.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css" rel="stylesheet">
         <link href="https://cdn.datatables.net/buttons/1.7.1/css/buttons.dataTables.min.css" rel="stylesheet">
+
+        {{-- CSS de Acessibilidade --}}
+        <link rel="stylesheet" href="{{ url('assets/css/acessibilidade.css') }}">
 
         {{-- Fontes do Google --}}
         <link href="https://fonts.googleapis.com/css2?family=Roboto" rel="stylesheet">
@@ -52,13 +55,13 @@
                 <div class="container">
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">CONTRASTE</a></li> 
-                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">TRANSPARÊNCIA</a></li>
-                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">ACESSIBILIDADE</a></li> 
-                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">MAPA DA APLICAÇÃO</a></li>
-                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">UTILIZAÇÃO DO PAGAMENTO DE RESOLUÇÕES</a></li> 
-                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">OUTROS SISTEMAS</a></li> 
-                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#">ACESSO DO ADMINISTRADOR</a></li> 
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="#" id="altocontraste" ccesskey="1" onclick="window.toggleContrast()" onkeydown="window.toggleContrast()">CONTRASTE</a></li> 
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="https://www.saude.mg.gov.br/transparencia" accesskey="2">TRANSPARÊNCIA</a></li>
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="{{ route('perguntas-frequentes') }}" accesskey="3">Perguntas Frequentes</a></li> 
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="{{ route('contatos') }}" accesskey="4">CONTATO</a></li>
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="{{ route('utilizacao-pagamento-resolucoes') }}" accesskey="5">UTILIZAÇÃO DO PAGAMENTO DE RESOLUÇÕES</a></li> 
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="{{ route('outros-sistemas') }}" accesskey="6">OUTROS SISTEMAS</a></li> 
+                            <li class="nav-item font-nav-bar"> <a class="nav-link active" aria-current="page" href="{{ route('admin.index') }}" accesskey="7">ACESSO DO ADMINISTRADOR</a></li>
                         </ul>
                     </div>
                 </div>
@@ -68,13 +71,17 @@
         {{-- NavBar de Logo e Busca --}}
         <nav class="navbar navbar-light">
             <div class="container">
-                <a class="navbar-brand" href="#">
+                <a class="navbar-brand" href="https://www.saude.mg.gov.br/">
                     <img src="{{ url('img/logo-secretaria-de-saude-mg-pequena.png') }}" alt="Secretaria de Estado de Saúde" class="d-inline-block align-text-top">
                 </a>
-                <form class="d-flex">
-                    <input class="form-control me-2" type="search" placeholder="Pesquisar" aria-label="Buscar">
-                    <button class="btn btn-outline-danger" type="submit">Busca</button>
-                </form>
+                <div class="col" id="center" onclick="homepage()">
+                    <div class="row">
+                        <p id="logo-text">Pagamento de</p></span>
+                    </div>
+                    <div class="row">
+                        <p id="logo-text-ses"><strong>Resoluções</strong></p></span>
+                    </div>   
+                </div>
             </div>
         </nav>
 
@@ -84,8 +91,33 @@
         <nav class="navbar-collapse navbar-expand-sm navbar-light sombreado">
             <div class="container">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item"> <a class="nav-link active" aria-current="page" href="{{ route('pagamentos-orcamentarios.index') }}">Pagamentos Orçamentarios</a></li> 
-                    <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Restos a Pagar</a></li>
+                    @if($_SERVER["REQUEST_URI"] == '/')
+                        <li class="nav-item"> <button type="button" class="btn btn-danger">Página Inicial</button></li>
+                    @else
+                        <li class="nav-item"> <a class="nav-link active teste" aria-current="page" href="{{ route('guest.index') }}">Página Inicial</a></li>
+                    @endif
+
+                    @if($_SERVER["REQUEST_URI"] == '/pagamentos-orcamentarios')
+                        <li class="nav-item"> <button type="button" class="btn btn-danger">Pagamentos Orçamentários</button></li> 
+                    @else
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="{{ route('pagamentos-orcamentarios.index') }}">Pagamentos Orçamentarios</a></li> 
+                    @endif
+
+                    @if($_SERVER["REQUEST_URI"] == '/restos-a-pagar')
+                        <li class="nav-item">  <button type="button" class="btn btn-danger">Pagamentos de Restos a Pagar</button></li>                    
+                    @else
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="{{ route('restos-a-pagar.index') }}">Pagamento de Restos a Pagar</a></li>                    
+                    @endif
+
+                   
+                    @if(isset(Auth::user()->id)) 
+                        <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Painel de Administrador</a></li>
+                        <li class="nav-item"> 
+                            <a class="nav-link active" aria-current="page" href="{{ route('logout') }}">
+                                <span style="color:red;"><strong>LOGOUT</strong></span>
+                            </a>
+                        </li>
+                    @endif
                 </ul>
             </div>
         </nav>
@@ -101,6 +133,55 @@
             function homepage(){
                 window.location.href = "http://pagamentoderesolucoes.saude.mg.gov.br//";
             }
+
+            (function () {
+                var Contrast = {
+                    storage: 'contrastState',
+                    cssClass: 'contrast',
+                    currentState: null,
+                    check: checkContrast,
+                    getState: getContrastState,
+                    setState: setContrastState,
+                    toogle: toogleContrast,
+                    updateView: updateViewContrast
+                };
+
+                window.toggleContrast = function () { Contrast.toogle(); };
+
+                Contrast.check();
+
+                function checkContrast() {
+                    this.updateView();
+                }
+
+                function getContrastState() {
+                    return localStorage.getItem(this.storage) === 'true';
+                }
+
+                function setContrastState(state) {
+                    localStorage.setItem(this.storage, '' + state);
+                    this.currentState = state;
+                    this.updateView();
+                }
+
+                function updateViewContrast() {
+                    var body = document.body;
+                    
+                    if (!body) return;
+
+                    if (this.currentState === null)
+                        this.currentState = this.getState();
+
+                    if (this.currentState)
+                        body.classList.add(this.cssClass);
+                    else
+                        body.classList.remove(this.cssClass);
+                }
+
+                function toogleContrast() {
+                    this.setState(!this.currentState);
+                }
+            })();
         </script>
 
     </body>

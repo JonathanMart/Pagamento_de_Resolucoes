@@ -15,7 +15,8 @@
 <table id="table" class="table table-striped" style="width: 100%;">
     <thead class="table-primary">
         <tr>
-            <th scope="col">Município</th>
+            <th scope="col">Ano Empenho</th>
+	        <th scope="col">Município</th>
             <th scope="col">Cód. Projeto/<br>Atividade</th>
             <th scope="col">Projeto/<br>Atividade</th>
             <th scope="col">Cód. Fonte</th>
@@ -24,7 +25,8 @@
             <th scope="col">Nº de Empenho</th>
             <th scope="col">Nº de Documento de Pagamento</th>
             <th scope="col">Data de Pagamento</th>
-            <th scope="col">Valor Pago Financeiro</th>
+            <th scope="col">Valor Pago Não Processado</th>
+            <th scope="col">Valor Pago Processado</th>
             <th scope="col">Cód. Banco Creditado</th>
             <th scope="col">Cód. Agência Creditada</th>
             <th scope="col">Conta Corrente Creditada</th>
@@ -38,6 +40,7 @@
     <tbody>
         @foreach($consulta as $registro)
             <tr>  
+                <td>{{ $registro['ano_empenho'] }}</td>
                 <td>{{ $registro['dsc_municipio'] }}</td>
                 <td>{{ $registro['cod_atv'] }}</td>
                 <td>{{ $registro['dsc_atv'] }}</td>
@@ -50,7 +53,8 @@
                 @php( $mes = substr($registro['data_pgto'], 5, 2))
                 @php( $dia = substr($registro['data_pgto'], 8, 2))
                 <td>{{ $dia . '/' . $mes . '/' . $ano }}</td>
-                <td>{{ 'R$ ' . number_format( $registro['valor_pago_financeiro'], $decimals=2, $dec_pont=',', $thousand_sep='.') }}</td> 
+                <td>{{ 'R$ ' . number_format($registro['valor_pago_nproces'], $decimals=2, $dec_pont=',', $thousand_sep='.') }}</td>
+                <td>{{ 'R$ ' . number_format($registro['valor_pago_proces'], $decimals=2, $dec_point=',', $thousand_sep='.') }}</td>
                 <td>{{ $registro['cod_banco'] }}</td>
                 <td>{{ $registro['cod_agencia'] }}</td>
                 <td>{{ $registro['conta'] }}</td>
@@ -58,7 +62,7 @@
                 <td>{{ $registro['id_credor'] }} </td>
                 <td>{{ $registro['credor'] }}</td>
                 <td>{{ $registro['ref_contrato_saida'] }}</td>
-                <td><a href="{{ route('pagamentos-orcamentarios.visualizar', ['id' => $registro['id']]) }}" class="btn btn-primary">Visualizar</a></td>
+                <td><a href="{{ route('restos-a-pagar.visualizar', ['id' => $registro['id']]) }}" class="btn btn-primary">Visualizar</a></td>
             </tr>
         @endforeach
     </tbody>
@@ -96,7 +100,7 @@ $(document).ready(function() {
         },
 	responsive: true,
 	"columnDefs": [
-	    {targets: [1, 2, 3, 17], visible: true}, //define as colunas inicialmente visiveis
+	    {targets: [1, 2, 3, 19], visible: true}, //define as colunas inicialmente visiveis
         { targets: '_all', visible: false }
 	]
     });
