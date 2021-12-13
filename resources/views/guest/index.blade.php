@@ -7,7 +7,7 @@
 {{-- Linha de Cards de Informação --}}
 
 <div class="container center">
-    <div class="alert alert-primary" role="alert">
+    <div class="alert alert-success" role="alert">
         @php($last_id = DB::table('restos_pagars')->orderBy('id', 'desc')->first())
         @php($last_id != null ? $last_id = $last_id->id : null )
         @php($date = DB::table('restos_pagars')->where('id', $last_id)->value('updated_at'))
@@ -24,7 +24,7 @@
             <div class="card text-center">
                 <div class="card-block">
                     <h4 class="card-title">Pagamentos Orçamentarios</h4>
-                    <h2><a href="{{ route('pagamentos-orcamentarios.index') }}"><i class="fa fas fa-money-bill-wave-alt fa-3x"></i></a></h2>
+                    <h2><a class="dinheiro" href="{{ route('pagamentos-orcamentarios.index') }}"><i class="fa fas fa-money-bill-wave-alt fa-3x"></i></a></h2>
                 </div>
                 <div class="col">
                     <div class="row">
@@ -40,7 +40,7 @@
             <div class="card text-center">
                 <div class="card-block">
                     <h5 class="card-title">Pagamentos de Restos a Pagar</h5>
-                    <h2><a href="{{ route('restos-a-pagar.index') }}"><i class="fas fa-dollar-sign fa-3x"></i></a></h2>
+                    <h2><a class="dinheiro" href="{{ route('restos-a-pagar.index') }}"><i class="fas fa-dollar-sign fa-3x"></i></a></h2>
                 </div>
                 <div class="col">
                     <div class="row">
@@ -56,7 +56,7 @@
             <div class="card text-center">
                 <div class="card-block">
                     <h5 class="card-title">Pagamentos de Restos a Pagar</h5>
-                    <h2><a href="{{ route('restos-a-pagar.index') }}"><i class="fas fa-coins fa-3x"></i></a></h2>
+                    <h2><a  class="dinheiro" href="{{ route('restos-a-pagar.index') }}"><i class="fas fa-search-dollar fa-3x"></i></a></h2>
                 </div>
                 <div class="col">
                     <div class="row">
@@ -69,8 +69,14 @@
             </div>
         </div>
     </div>
-    <div class="row">
-        Este sistema destina-se à apresentação do Pagamento de Resoluções de 2020 e 2021
+    <br>
+    <div class="container">
+        <blockquote class="blockquote text-center text-success text-destaque">    
+            <em>
+            Nessa página, estão disponíveis os pagamentos realizados, nos anos de 2019 a 2021, 
+            pelo Fundo Estadual de Saúde, de resoluções publicadas pela Secretária de Estado de Saúde
+            </em>
+        </blockquote>
     </div>
 </div>
 

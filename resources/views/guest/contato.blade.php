@@ -26,7 +26,7 @@
         Tel: (31) 3916-0663
         <br>
         E-mail: 
-        <a href="mailto:spf@saude.mg.gov.br">dfcr@saude.mg.gov.br</a>
+        <a href="mailto:dfcr@saude.mg.gov.br">dfcr@saude.mg.gov.br</a>
     </div>
 </div>
 
@@ -41,7 +41,7 @@
         Tel: (31) 3916-0146
         <br>
         E-mail: 
-        <a href="mailto:spf@saude.mg.gov.br">william.silva@saude.mg.gov.br</a>
+        <a href="mailto:william.silva@saude.mg.gov.br">william.silva@saude.mg.gov.br</a>
     </div>
     <div class="col">
         <strong>Coordenação de Desenvolvimento</strong>
@@ -51,10 +51,7 @@
         Tel: (31) 3916-8915
         <br>
         E-mail: 
-        <a href="mailto:spf@saude.mg.gov.br">desenvolvimento@saude.mg.gov.br</a>
-        <br>
-        E-mail:
-        <a href="mailto:spf@saude.mg.gov.br">mauro.pontes@saude.mg.gov.br</a>
+        <a href="mailto:desenvolvimento@saude.mg.gov.br">desenvolvimento@saude.mg.gov.br</a>
     </div>
 </div>
 

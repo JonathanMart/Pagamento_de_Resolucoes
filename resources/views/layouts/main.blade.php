@@ -40,6 +40,7 @@
         <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.7.1/js/buttons.print.min.js"></script>
 
 
+
 	{{--Colums Visibility--}}
 	<script type="text/javascript" src="https://cdn.datatables.net/buttons/2.0.0/js/buttons.colVis.min.js"></script>	
 
@@ -127,6 +128,45 @@
         <div class="container">
             @yield('content')
             <br>
+        </div>
+
+        <hr>
+
+        <div class="footer-clean">
+            <footer>
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-sm-4 col-md-3 item">
+                            <h3>Outros Sistemas</h3>
+                            <ul>
+                                <li><a href="http://sig-res.saude.mg.gov.br/">SIGRES</a></li>
+                                <li><a href="http://declarasus.saude.mg.gov.br/">DeclaraSUS</a></li>
+                                <li><a href="https://dados.mg.gov.br/dataset/doacoes-covid-19">Doações Coronavírus</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-md-3 item">
+                            <h3>Fale Conosco</h3>
+                            <ul>
+                                <li><a href="mailto:spf@saude.mg.gov.br">Superintendência de Planejamento e Finanças</a></li>
+                                <li><a href="mailto:dfcr@saude.mg.gov.br">Diretoria de Formalização de Convênios e Resoluções</a></li>
+                                <li><a href="mailto:william.silva@saude.mg.gov.br">Diretoria de Inovação e Tecnologia da Informação</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-sm-4 col-md-3 item">
+                            <h3>Lei de Acesso à Informação</h3>
+                            <ul>
+                                <li><a href="http://www.acessoainformacao.mg.gov.br/sistema/site/index.html?ReturnUrl=%2fsistema%2f">e-SIC</a></li>
+                                <li><a href="https://www.ouvidoriageral.mg.gov.br/canais-atendimento">Ouvidoria</a></li>
+                                <li><a href="#">LGPD</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-3 item social"><a href="https://www.facebook.com/SaudeMG"><i class="fab fa-facebook"></i></a><a href="https://twitter.com/saudemg"><i class="fab fa-twitter"></i></a><a href="https://www.youtube.com/user/saudemg"><i class="fab fa-youtube"></i></a><a href="https://www.instagram.com/saudemg/"><i class="fab fa-instagram"></i></a>
+                            <p class="copyright">{{'©' . date('Y') }} <strong>Secretaria de Estado de Saúde</strong></p>
+                            <p class="copyright">Desenvolvido por <strong>Diretoria de Inovação e Tecnologia da Informação</strong></p>
+                        </div>
+                    </div>
+                </div>
+            </footer>
         </div>
 
         <script>

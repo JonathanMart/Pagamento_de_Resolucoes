@@ -16,22 +16,12 @@
         <br>
         <strong>Descrição:</strong> 
         <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium sint,
-            nulla rem ducimus porro provident ab dolorem recusandae ea, nihil sunt, sit expedita ex. Quo beatae perspiciatis quam ad adipisci.
+            O SigRes é o sistema de Sistema de Gerenciamento de Resoluções Estaduais de Saúde. 
+            Nele, estão disponíveis, para os beneficiários, os dados as Resoluções em que estão comtemplados; 
+            os termos firmados entre a SES e os beneficiários; as metas e indicadores pactuados em cada instrumento; entre outras informações.
         </p>
     </div>
-    <div class="col">
-        <strong>Sistema de Gestão de Convênios</strong>
-        <br>
-        Link: 
-        <a href="https://www.convenios.mg.gov.br/">https://www.convenios.mg.gov.br/</a>
-        <br>
-        <strong>Descrição:</strong> 
-        <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Laudantium sint,
-            nulla rem ducimus porro provident ab dolorem recusandae ea, nihil sunt, sit expedita ex. Quo beatae perspiciatis quam ad adipisci.
-        </p>
-    </div>
+
 </div>
 
 
