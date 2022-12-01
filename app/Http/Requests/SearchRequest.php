@@ -26,6 +26,7 @@ class SearchRequest extends FormRequest
         return [
             'tipo_consulta' => 'required',
             'ano_empenho' => 'required', 
+            'conta' => 'required',
         ];
     }
 
@@ -34,6 +35,7 @@ class SearchRequest extends FormRequest
         return [
             'tipo_consulta.required' => 'É obrigatório informar o tipo de consulta',
             'ano_empenho.required' => 'É obrigatório informar o Ano do Empenho',
+            'conta.required' => 'É obrigatório informar a Conta  Corrente',
         ];
     }
 }

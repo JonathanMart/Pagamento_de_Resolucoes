@@ -2,7 +2,7 @@
 
 @section('title', 'Pagamento de Resoluções: Pagamentos Orçamentários')
 
-@php($pagamentos_orcamentarios = DB::table('pagamentos_orcamentarios')->get())
+
 
 @section('content')
 <h3>Consulta: Pagamentos Orçamentários</h3>

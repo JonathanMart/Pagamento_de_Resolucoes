@@ -1,14 +1,30 @@
 @extends('layouts.main')
 
 @section('title', 'Pagamento de Resoluções: Pagamentos Orçamentários')
-
-@php($pagamentos_orcamentarios = DB::table('pagamentos_orcamentarios')->get())
-
 @section('content')
 <h3>Pagamentos Orçamentários</h3>
 <hr>
 
 {{-- Formulario de Pesquisa --}}
+
+<div class="alert alert-success">
+    <ul>
+	<li>O campo Ano do Pagamento é obrigatório</li> 
+	<li>O campo Municipio é obrigatório</li>
+    </ul>	
+</div>
+
+
+@if($errors->any())
+<div class="alert alert-danger"> 
+    <ul>
+	@foreach($errors->all() as $error)
+	    <li>{{ $error }}</li>
+	@endforeach
+    </ul>
+</div>
+@endif
+
 <form action="{{ route('pagamentos-orcamentarios.search') }}" method="post">
     @csrf
 
@@ -17,15 +33,8 @@
             <div class="form-floating">
                 <select class="form-select" id="ano_pagamento" name="data_pgto">
                     <option value="" selected>Selecione o ano de Pagamento</option>
-                    @php($anos = $pagamentos_orcamentarios->unique('data_pgto'))
-        		    @php($anos = $anos->sortBy('data_pgto'))
-                    @php($anos_pgto = array())
-                    @foreach($anos as $ano)
-                        @php($anos_pgto[] = substr($ano->data_pgto, 0, 4))
-                    @endforeach
-                    @php($anos_pgto_unico = array_unique($anos_pgto))
-                    @foreach($anos_pgto_unico as $ano)
-                            <option>{{ $ano }}</option>
+                    @foreach($anos_pagamento as $ano)
+                        <option>{{ $ano }}</option>
                     @endforeach
                 </select>
                 <label for="ano">Ano do Pagamento</label>
@@ -35,10 +44,8 @@
 	        <div class="form-floating">
                 <select class="form-select" id="dsc_municipio" name="dsc_municipio">
                     <option value="" selected>Selecione o municipio</option>
-                    @php($municipios = $pagamentos_orcamentarios->unique('dsc_municipio'))
-                    @php($municipios = $municipios->sortBy('dsc_municipio'))
-                    @foreach($municipios as $registro)
-                        <option>{{ $registro->dsc_municipio}}</option>
+                    @foreach($municipios as $municipio)
+                        <option>{{ $municipio}}</option>
                     @endforeach 
                 </select>
                 <label for="dsc_municipio">Municipio</label>
@@ -65,10 +72,8 @@
             <div class="form-floating">
                 <select class="form-select" id="projetoAtividade" name="cod_atv">
                     <option value="" selected>Selecione o Projeto/Atividade</option>
-                    @php($projetos = $pagamentos_orcamentarios->unique('cod_atv'))
-                    @php($projetos = $projetos->sortBy('cod_atv'))
-                    @foreach($projetos as $registro)
-                        <option value="{{ $registro->cod_atv  }}"  >{{$registro->cod_atv . ' - ' . $registro->dsc_atv}}</option>
+                    @foreach($projetos_atividades as $cod_projeto_atividade => $projeto_atividade)
+                        <option value="{{ $cod_projeto_atividade }}">{{$cod_projeto_atividade . ' - ' . $projeto_atividade}}</option>
                     @endforeach
                 </select>
                 <label for="projetoAtividade">Projeto/Atividade</label>
@@ -78,12 +83,8 @@
             <div class="form-floating">
                 <select class="form-select" id="upg" name="cod_upg">
                     <option value="" selected>Selecione a UPG</option>
-                    @php($upgs = $pagamentos_orcamentarios->unique('cod_upg'))
-                    @php($upgs = $upgs->sortBy('cod_upg'))
-                    @foreach($upgs as $registro)
-                        @if($registro->cod_upg != 0)
-                            <option value="{{ $registro->cod_upg  }}"  >{{$registro->cod_upg . ' - ' . $registro->dsc_upg}}</option>
-                        @endif
+                    @foreach($upg as $cod_upg => $upg)
+                        <option value="{{ $cod_upg  }}"  >{{$cod_upg . ' - ' . $upg}}</option>
                     @endforeach
                 </select>
                 <label for="upg">Unidade de Programação de Gasto</label>

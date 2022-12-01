@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\PagamentosOrcamentario; 
+use App\Models\RestosPagar;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -11,13 +13,23 @@ class HomeController extends Controller
 
     public function index()
     {
+
+	$ano_atual = date('Y'); 
+
+	$valor_pago_financeiro = PagamentosOrcamentario::whereYear('data_pgto', $ano_atual)->sum('valor_pago_financeiro'); 
+
+	$valor_pago_processado = RestosPagar::whereYear('data_pgto', $ano_atual)->sum('valor_pago_proces'); 
+
+	$valor_pago_nao_processado = RestosPagar::whereYear('data_pgto', $ano_atual)->sum('valor_pago_nproces');
+	
+
         $array_totais = [
 
-            'valor_pago_financeiro' => DB::table('pagamentos_orcamentarios')->sum('valor_pago_financeiro'),
+            'valor_pago_financeiro' => $valor_pago_financeiro,
         
-            'valor_pago_processado' => DB::table('restos_pagars')->sum('valor_pago_proces'),
+            'valor_pago_processado' => $valor_pago_processado,
     
-            'valor_pago_nao_processado' => DB::table('restos_pagars')->sum('valor_pago_nproces'),
+            'valor_pago_nao_processado' => $valor_pago_nao_processado,
         ];
 
         

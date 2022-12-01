@@ -109,8 +109,8 @@
                     @else
                         <li class="nav-item"> <a class="nav-link active" aria-current="page" href="{{ route('restos-a-pagar.index') }}">Pagamento de Restos a Pagar</a></li>                    
                     @endif
-
-                   
+                    <li style="margin-left: 100px; margin-top:15px; text-align:center"><b><span style="color:red">Aviso:</span> Para consulta completa dos valores pagos, é necessário que sejam consultadas as abas Pagamentos Orçamentários e Pagamento de Restos a Pagar.</b></li>
+                        
                     @if(isset(Auth::user()->id)) 
                         <li class="nav-item"> <a class="nav-link active" aria-current="page" href="#">Painel de Administrador</a></li>
                         <li class="nav-item"> 
